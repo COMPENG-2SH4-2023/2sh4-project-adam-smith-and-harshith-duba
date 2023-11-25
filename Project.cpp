@@ -44,7 +44,7 @@ void Initialize(void)
     MacUILib_clearScreen();
     exitFlag = false;
     //added
-    currGame = new GameMechs(40,20); //Resize board (x,y)
+    currGame = new GameMechs(40,10); //Resize board (x,y)
     p1 = new Player(currGame);
 }
 
@@ -72,9 +72,13 @@ void DrawScreen(void)
     int py = plr.y;
     char ps = plr.symbol;
     
-    for (i = 0; i<currGame->getBoardSizeY(); i++){
-        for(j = 0; j<currGame->getBoardSizeX(); j++){
-            if(i == 0 || i ==  currGame->getBoardSizeY()-1|| j == 0 || j == currGame->getBoardSizeX()-1){
+    int bx = currGame->getBoardSizeX();
+    int by = currGame->getBoardSizeY();
+
+
+    for (i = 0; i<by; i++){
+        for(j = 0; j<bx; j++){
+            if(i == 0 || i == by-1|| j == 0 || j == bx-1){
                 MacUILib_printf("#");        
             }
             else if(i == py && j == px){

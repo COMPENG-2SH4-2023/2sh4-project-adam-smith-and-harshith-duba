@@ -26,6 +26,7 @@ void Player::updatePlayerDir()
     // PPA3 input processing logic   
     char input = mainGameMechsRef->getInput();
     mainGameMechsRef->clearInput();
+    
     if(input != 0)  // if not null character
     {
         switch(input)
@@ -60,6 +61,9 @@ void Player::updatePlayerDir()
 void Player::movePlayer()
 {
     // PPA3 Finite State Machine logic
+    int bx = mainGameMechsRef->getBoardSizeX();
+    int by = mainGameMechsRef->getBoardSizeY();
+
     if(myDir == LEFT){
         playerPos.x--;
     }
@@ -74,16 +78,16 @@ void Player::movePlayer()
     }
     //border wraparound
     if(playerPos.y == 0){
-        playerPos.y = mainGameMechsRef->getBoardSizeY()-2;
+        playerPos.y = by-2;
     }
-    else if(playerPos.y == mainGameMechsRef->getBoardSizeY()-1){
+    else if(playerPos.y == by-1){
         playerPos.y = 1;
     }
-    if(playerPos.x == mainGameMechsRef->getBoardSizeX()-1){
+    if(playerPos.x == bx-1){
         playerPos.x = 1;
     }
     else if(playerPos.x == 0){
-        playerPos.x = mainGameMechsRef->getBoardSizeX()-2;
+        playerPos.x = bx-2;
     }
 }
 
