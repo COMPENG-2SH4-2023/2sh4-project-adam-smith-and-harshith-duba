@@ -6,6 +6,8 @@ Player::Player(GameMechs* thisGMRef)
     mainGameMechsRef = thisGMRef;
     myDir = STOP;
     playerPos = objPos(10,5,'*');
+    bx = mainGameMechsRef->getBoardSizeX();
+    by = mainGameMechsRef->getBoardSizeY();
     // more actions to be included
 }
 
@@ -61,8 +63,6 @@ void Player::updatePlayerDir()
 void Player::movePlayer()
 {
     // PPA3 Finite State Machine logic
-    int bx = mainGameMechsRef->getBoardSizeX();
-    int by = mainGameMechsRef->getBoardSizeY();
 
     if(myDir == LEFT){
         playerPos.x--;

@@ -10,6 +10,7 @@ using namespace std;
 bool exitFlag;
 Player *p1;
 GameMechs *currGame;
+int bx,by;
 
 void Initialize(void);
 void GetInput(void);
@@ -44,14 +45,25 @@ void Initialize(void)
     MacUILib_clearScreen();
     exitFlag = false;
     //added
-    currGame = new GameMechs(40,10); //Resize board (x,y)
+    currGame = new GameMechs(20,10); //Resize board (x,y)
     p1 = new Player(currGame);
+    bx = currGame->getBoardSizeX();
+    by = currGame->getBoardSizeY();
 }
 
 void GetInput(void)
 {
     if(MacUILib_hasChar() == 1){
-        currGame->setInput(MacUILib_getChar());
+        char in = MacUILib_getChar();
+        bool unprinted = true;
+        while(unprinted){
+            if(in != currGame->getInput()){
+                currGame->setInput(in);
+                unprinted = false;
+            }
+            else
+                in = MacUILib_getChar();
+        }
     }
 }
 
@@ -71,10 +83,6 @@ void DrawScreen(void)
     int px = plr.x;
     int py = plr.y;
     char ps = plr.symbol;
-    
-    int bx = currGame->getBoardSizeX();
-    int by = currGame->getBoardSizeY();
-
 
     for (i = 0; i<by; i++){
         for(j = 0; j<bx; j++){

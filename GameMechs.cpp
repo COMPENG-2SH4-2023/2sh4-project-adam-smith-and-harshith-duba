@@ -5,6 +5,7 @@ GameMechs::GameMechs()
     boardSizeX = 20;
     boardSizeY = 10;
     exitFlag = false;
+    input = 0;
 }
 
 GameMechs::GameMechs(int boardX, int boardY)
@@ -12,6 +13,7 @@ GameMechs::GameMechs(int boardX, int boardY)
     boardSizeX = boardX;
     boardSizeY = boardY;
     exitFlag = false;
+    input = 0;
 }
 
 // do you need a destructor?
@@ -51,7 +53,7 @@ void GameMechs::setInput(char this_input)
 
 void GameMechs::clearInput()
 {
-    input = '9';
+    input = 0;
 }
 
 
