@@ -16,7 +16,7 @@ private:
     bool exitFlag;
     int boardSizeX;
     int boardSizeY;
-    
+    int score;
 
 public:
     GameMechs();
@@ -37,6 +37,9 @@ public:
     objPosArrayList foodList;
     void generateFood(objPosArrayList blockOff);
     void getFoodPos(objPos &returnPos);
+
+    void incrementScore();
+    int getScore();
 };
 
 #endif

@@ -117,13 +117,21 @@ void Player::movePlayer()
         p = objPos(x,y,'*');
         playerPos->insertHead(p);
     }
+
+    if(mainGameMechsRef->getScore() > 3){
+        bool suicided = this->checkSelfCollision();
+        if(suicided == true){
+            mainGameMechsRef->setExitTrue();
+        }
+    }
+
     bool foodConsumed = this->checkFoodConsumption();
     if(myDir != STOP && !foodConsumed){
         playerPos->removeTail();
     }
     else if(myDir != STOP && foodConsumed){
         mainGameMechsRef->generateFood(*playerPos);
-        //mainGameMechsRef->incrementScore();
+        mainGameMechsRef->incrementScore();
     }
 }
 
@@ -135,6 +143,30 @@ bool Player::checkFoodConsumption(){
     if(p.x == f.x && p.y == f.y){
         return true;
     }
+    else
+        return false;
+}
+
+// returns true if collided with self, false if not
+bool Player::checkSelfCollision(){
+    objPos p, h; //head and body segment position
+
+    int vGrid[bx][by];
+    for(int k = 0; k < bx; k++){
+        for(int j = 0; j < by; j++){
+            vGrid[k][j] = 0;
+        }
+    }
+
+    for(int i = 1; i < playerPos->getSize(); i++){
+        playerPos->getElement(p,i);
+        vGrid[p.x][p.y] = 1;
+    }
+
+
+    playerPos->getHeadElement(h);
+    if(vGrid[h.x][h.y] == 1)
+        return true;
     else
         return false;
 }

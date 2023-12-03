@@ -14,6 +14,7 @@ GameMechs::GameMechs(int boardX, int boardY)
     boardSizeY = boardY;
     exitFlag = false;
     input = 0;
+    score = 0;
 }
 
 GameMechs::~GameMechs()
@@ -95,4 +96,11 @@ void GameMechs::generateFood(objPosArrayList blockOff)
 void GameMechs::getFoodPos(objPos &returnPos)
 {
     returnPos = foodPos;
+}
+
+void GameMechs::incrementScore(){
+    score++;
+}
+int GameMechs::getScore(){
+    return score;
 }

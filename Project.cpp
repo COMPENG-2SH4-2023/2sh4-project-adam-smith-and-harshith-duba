@@ -101,7 +101,7 @@ void DrawScreen(void)
                 py = p.y;
                 px = p.x;
                 ps = p.symbol;
-                if (i == py && j == px){
+                if (i == py && j == px && printed == false){
                     MacUILib_printf("%c", ps);
                     printed = true;
                 }
