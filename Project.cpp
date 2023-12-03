@@ -44,7 +44,6 @@ void Initialize(void)
     p1 = new Player(currGame);
     bx = currGame->getBoardSizeX();
     by = currGame->getBoardSizeY();
-    ppos = new objPosArrayList();
     ppos = p1->getPlayerPos();
     currGame->generateFood(*ppos);
 }
@@ -145,11 +144,7 @@ void CleanUp(void)
     MacUILib_printf("Game Ended. You Scored: %d.\n", currGame->getScore());
 
     MacUILib_uninit();
-    
-    ppos->kill();
 
-    delete ppos;
- 
     delete currGame;
     delete p1;
 }
