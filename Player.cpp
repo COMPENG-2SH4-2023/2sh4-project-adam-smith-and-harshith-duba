@@ -21,10 +21,10 @@ Player::~Player()
     delete playerPos;
 }
 
-void Player::getPlayerPos(objPosArrayList &returnPos)
+objPosArrayList* Player::getPlayerPos()
 {
     // return the reference to the playerPos array list
-    returnPos = *playerPos;
+    return (playerPos);
 }
 
 void Player::updatePlayerDir()

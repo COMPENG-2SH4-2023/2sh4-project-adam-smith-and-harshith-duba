@@ -10,7 +10,8 @@ using namespace std;
 bool exitFlag;
 Player *p1;
 GameMechs *currGame;
-objPosArrayList ppos;
+objPosArrayList *ppos;
+objPos p;
 int bx, by;
 
 void Initialize(void);
@@ -43,9 +44,9 @@ void Initialize(void)
     p1 = new Player(currGame);
     bx = currGame->getBoardSizeX();
     by = currGame->getBoardSizeY();
-    
-    p1->getPlayerPos(ppos);
-    currGame->generateFood(ppos);
+    ppos = new objPosArrayList();
+    ppos = p1->getPlayerPos();
+    currGame->generateFood(*ppos);
 }
 
 void GetInput(void)
@@ -78,10 +79,9 @@ void DrawScreen(void)
 {
     MacUILib_clearScreen();
     int i, j, k, letter, printed;
-    objPosArrayList pl;
-    p1->getPlayerPos(pl);
-    objPos p;
-    pl.getHeadElement(p);
+    ppos = p1->getPlayerPos();
+    ppos->getHeadElement(p);
+
     int px = p.x;
     int py = p.y;
     char ps = p.symbol;
@@ -96,8 +96,8 @@ void DrawScreen(void)
     {
         for (j = 0; j < bx; j++)
         {
-            for(k = 0; k < pl.getSize(); k++){
-                pl.getElement(p, k);
+            for(k = 0; k < ppos->getSize(); k++){
+                ppos->getElement(p, k);
                 py = p.y;
                 px = p.x;
                 ps = p.symbol;
@@ -122,7 +122,7 @@ void DrawScreen(void)
         }
         MacUILib_printf("\n");
     }
-    //DEBUG CODE MacUILib_printf("%d,%d", px, py);
+    MacUILib_printf("%d,%d", px, py);
 }
 
 void LoopDelay(void)
