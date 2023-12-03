@@ -10,7 +10,7 @@ using namespace std;
 bool exitFlag;
 Player *p1;
 GameMechs *currGame;
-int bx,by;
+int bx, by;
 
 void Initialize(void);
 void GetInput(void);
@@ -19,14 +19,11 @@ void DrawScreen(void);
 void LoopDelay(void);
 void CleanUp(void);
 
-
-
 int main(void)
 {
-
     Initialize();
 
-    while(exitFlag == false)  
+    while (exitFlag == false)
     {
         GetInput();
         RunLogic();
@@ -34,18 +31,14 @@ int main(void)
         LoopDelay();
     }
     CleanUp();
-
 }
-
 
 void Initialize(void)
 {
-    //default
     MacUILib_init();
     MacUILib_clearScreen();
     exitFlag = false;
-    //added
-    currGame = new GameMechs(20,10); //Resize board (x,y)
+    currGame = new GameMechs(20, 10);
     p1 = new Player(currGame);
     bx = currGame->getBoardSizeX();
     by = currGame->getBoardSizeY();
@@ -53,11 +46,14 @@ void Initialize(void)
 
 void GetInput(void)
 {
-    if(MacUILib_hasChar() == 1){
+    if (MacUILib_hasChar() == 1)
+    {
         char in = MacUILib_getChar();
         bool unprinted = true;
-        while(unprinted){
-            if(in != currGame->getInput()){
+        while (unprinted)
+        {
+            if (in != currGame->getInput())
+            {
                 currGame->setInput(in);
                 unprinted = false;
             }
@@ -76,38 +72,41 @@ void RunLogic(void)
 
 void DrawScreen(void)
 {
-    MacUILib_clearScreen();    
+    MacUILib_clearScreen();
     int i, j, k, letter, printed;
-    objPos plr;
-    p1->getPlayerPos(plr);
-    int px = plr.x;
-    int py = plr.y;
-    char ps = plr.symbol;
 
-    for (i = 0; i<by; i++){
-        for(j = 0; j<bx; j++){
-            if(i == 0 || i == by-1|| j == 0 || j == bx-1){
-                MacUILib_printf("#");        
+    objPos playerPos;
+    p1->getPlayerPos(playerPos);
+    int px = playerPos.x;
+    int py = playerPos.y;
+    char ps = playerPos.symbol;
+
+    objPos foodPos;
+    currGame->foodList.getHeadElement(foodPos);
+    int fx = foodPos.x;
+    int fy = foodPos.y;
+    char fs = foodPos.symbol;
+
+    for (i = 0; i < by; i++)
+    {
+        for (j = 0; j < bx; j++)
+        {
+            if (i == 0 || i == by - 1 || j == 0 || j == bx - 1)
+            {
+                MacUILib_printf("#");
             }
-            else if(i == py && j == px){
-                MacUILib_printf("%c",ps);
+            else if (i == py && j == px)
+            {
+                MacUILib_printf("%c", ps);
             }
-            else{
+            else if (i == fy && j == fx)
+            {
+                MacUILib_printf("%c", fs);
+            }
+            else
+            {
                 MacUILib_printf(" ");
             }
-            /*   THIS IS OLD CODE FOR PRINTING THE LETTERS (MIGHT BE USEFUL FOR FOOD)
-            else{
-                for(k = 0; k < LETTERS; k++){
-                    if(i==listt[k].y && j == listt[k].x){
-                        MacUILib_printf("%c", listt[k].symbol);
-                        printed = 1;
-                    }
-                }
-                if(printed == 0){
-                    MacUILib_printf(" ");
-                }
-            }
-            printed = 0; */
         }
         MacUILib_printf("\n");
     }
@@ -115,16 +114,13 @@ void DrawScreen(void)
 
 void LoopDelay(void)
 {
-    MacUILib_Delay(DELAY_CONST); // 0.1s delay
+    MacUILib_Delay(DELAY_CONST);
 }
-
 
 void CleanUp(void)
 {
-    MacUILib_clearScreen();    
-  
+    MacUILib_clearScreen();
     MacUILib_uninit();
-
     delete currGame;
     delete p1;
 }

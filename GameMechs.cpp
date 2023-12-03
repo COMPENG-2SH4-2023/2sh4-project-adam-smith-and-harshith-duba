@@ -1,14 +1,11 @@
 #include "GameMechs.h"
 
-#include "GameMechs.h"
-
 GameMechs::GameMechs()
 {
     boardSizeX = 20;
     boardSizeY = 10;
     exitFlag = false;
     input = 0;
-    srand(time(NULL)); // Initialize random seed
 }
 
 GameMechs::GameMechs(int boardX, int boardY)
@@ -17,7 +14,11 @@ GameMechs::GameMechs(int boardX, int boardY)
     boardSizeY = boardY;
     exitFlag = false;
     input = 0;
-    srand(time(NULL)); // Initialize random seed
+}
+
+GameMechs::~GameMechs()
+{
+    // Add any necessary cleanup logic for GameMechs
 }
 
 bool GameMechs::getExitFlagStatus()
@@ -55,19 +56,30 @@ void GameMechs::clearInput()
     input = 0;
 }
 
-void GameMechs::generateFood()
+void GameMechs::generateFood(objPos blockOff)
 {
-    // Generate random x and y coordinates for the food
-    int foodX = rand() % (boardSizeX - 2) + 1; // Avoid placing food on the borders
-    int foodY = rand() % (boardSizeY - 2) + 1;
+    srand(time(NULL));  // Seed the random number generator
 
-    // Create a new food position and add it to the food list
-    objPos foodPos(foodX, foodY, '*');
+    // Generate random x and y coordinates for the food
+    int randX = rand() % (boardSizeX - 2) + 1;  // Avoid borders
+    int randY = rand() % (boardSizeY - 2) + 1;
+
+    // Ensure the generated position is not on the player's position
+    while ((randX == blockOff.x) && (randY == blockOff.y)) {
+        randX = rand() % (boardSizeX - 2) + 1;
+        randY = rand() % (boardSizeY - 2) + 1;
+    }
+
+    // Set the food position
+    foodPos.x = randX;
+    foodPos.y = randY;
+    foodPos.symbol = '*';  // 
+
+    // Add the food to the food list
     foodList.insertTail(foodPos);
 }
 
-void GameMechs::getFoodList(objPosArrayList &returnList)
+void GameMechs::getFoodPos(objPos &returnPos)
 {
-    // Get the list of food positions
-    foodList = returnList;
+    returnPos = foodPos;
 }

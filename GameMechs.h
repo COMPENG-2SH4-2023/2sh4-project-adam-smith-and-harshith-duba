@@ -3,8 +3,11 @@
 
 #include <cstdlib>
 #include <time.h>
+
 #include "objPos.h"
 #include "objPosArrayList.h"
+
+using namespace std;
 
 class GameMechs
 {
@@ -13,11 +16,13 @@ private:
     bool exitFlag;
     int boardSizeX;
     int boardSizeY;
-    objPosArrayList foodList; // New member to store food positions
+    objPosArrayList foodList;
+    objPos foodPos;  // Added foodPos member
 
 public:
     GameMechs();
     GameMechs(int boardX, int boardY);
+    ~GameMechs();
 
     bool getExitFlagStatus();
     void setExitTrue();
@@ -29,8 +34,8 @@ public:
     int getBoardSizeX();
     int getBoardSizeY();
 
-    void generateFood(); // New method to generate random food
-    void getFoodList(objPosArrayList &returnList); // New method to get the list of food positions
+    void generateFood(objPos blockOff);
+    void getFoodPos(objPos &returnPos);
 };
 
 #endif
