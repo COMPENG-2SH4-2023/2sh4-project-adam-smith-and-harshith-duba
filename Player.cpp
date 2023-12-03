@@ -1,9 +1,10 @@
 #include "Player.h"
 
 
-Player::Player(GameMechs* thisGMRef)
+Player::Player(GameMechs* thisGMRef, Food* food1)
 {
     mainGameMechsRef = thisGMRef;
+    f1 = food1;
     myDir = STOP;
     bx = mainGameMechsRef->getBoardSizeX();
     by = mainGameMechsRef->getBoardSizeY();
@@ -132,21 +133,45 @@ void Player::movePlayer()
         playerPos->removeTail();
     }
     else if(myDir != STOP && foodConsumed){
-        mainGameMechsRef->generateFood(*playerPos);
-        mainGameMechsRef->incrementScore();
+        f1->generateFood(*playerPos);
     }
 }
 
 // returns true if collided with food, false if not
 bool Player::checkFoodConsumption(){
+    objPosArrayList fl = f1->getFoodPos();
     objPos p,f;
+    bool hit = false;
+    int sum;
     playerPos->getHeadElement(p);
-    mainGameMechsRef->getFoodPos(f);
-    if(p.x == f.x && p.y == f.y){
-        return true;
+    for(int k = 0; k < 5; k++){
+        fl.getElement(f,k);
+        if(p.x == f.x && p.y == f.y){
+            hit = true;
+            //normal food, 1 score
+            if(f.symbol == '+')
+                mainGameMechsRef->incrementScore(1);
+            else if(f.symbol == '-') //bad food -1 score
+                mainGameMechsRef->incrementScore(-1);
+            else if(f.symbol == '!') //great food score +5
+                mainGameMechsRef->incrementScore(5);
+            else if(f.symbol == '|') //terrible food, sets score to 0
+                mainGameMechsRef->incrementScore(mainGameMechsRef->getScore()*-1);
+            else if(f.symbol == '?'){ //strange food "randomly" does actions based on factors of coordinates and score (bad things more likely) stacks each modifier if they line up
+                sum = f.x + f.y + mainGameMechsRef->getScore();
+                if(sum % 5 == 0)
+                    mainGameMechsRef->incrementScore(10); //increases by 10 if sum is divisible by 5
+                if(sum % 2 == 0)
+                    mainGameMechsRef->incrementScore((mainGameMechsRef->getScore()/2)*-1); //halves the score if sum is even
+                if(sum % 13 == 0)
+                    mainGameMechsRef->incrementScore(-100); //extreme bad luck! divisible by 13 -100 score
+                if(sum % 7 == 0)
+                    mainGameMechsRef->incrementScore(100); //good luck! divisible by 7 +100 score
+                //it is possible for nothing to happen as well ex. any prime number not listed above, 
+            }
+        }
     }
-    else
-        return false;
+    return hit;
 }
 
 // returns true if collided with self, false if not

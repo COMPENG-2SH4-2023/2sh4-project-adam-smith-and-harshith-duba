@@ -57,7 +57,7 @@ void GameMechs::clearInput()
 {
     input = 0;
 }
-
+/*
 void GameMechs::generateFood(objPosArrayList blockOff)
 {
     srand(time(NULL));  // Seed the random number generator
@@ -98,9 +98,9 @@ void GameMechs::getFoodPos(objPos &returnPos)
 {
     returnPos = foodPos;
 }
-
-void GameMechs::incrementScore(){
-    score++;
+*/
+void GameMechs::incrementScore(int num){
+    score += num;
 }
 int GameMechs::getScore(){
     return score;

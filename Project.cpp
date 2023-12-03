@@ -2,7 +2,7 @@
 #include "MacUILib.h"
 #include "objPos.h"
 #include "Player.h"
-
+#include "Food.h"
 using namespace std;
 
 #define DELAY_CONST 90000
@@ -12,6 +12,7 @@ Player *p1 = NULL;
 GameMechs *currGame = NULL;
 objPosArrayList *ppos = NULL;
 objPos p;
+Food *f1;
 int bx, by;
 
 void Initialize(void);
@@ -41,11 +42,12 @@ void Initialize(void)
     MacUILib_clearScreen();
     exitFlag = false;
     currGame = new GameMechs(30, 15);
-    p1 = new Player(currGame);
     bx = currGame->getBoardSizeX();
     by = currGame->getBoardSizeY();
+    f1 = new Food(currGame);
+    p1 = new Player(currGame, f1);
     ppos = p1->getPlayerPos();
-    currGame->generateFood(*ppos);
+    f1->generateFood(*ppos);
 }
 
 void GetInput(void)
@@ -86,7 +88,7 @@ void DrawScreen(void)
     char ps = p.symbol;
 
     objPos foodPos;
-    currGame->foodList.getHeadElement(foodPos);
+    f1->getFoodPos().getHeadElement(foodPos);
     int fx = foodPos.x;
     int fy = foodPos.y;
     char fs = foodPos.symbol;
@@ -108,14 +110,20 @@ void DrawScreen(void)
                     printed = true;
                 }
             }
+            for(int o = 0; o < 5; o++){
+                f1->getFoodPos().getElement(foodPos, o);
+                int fx = foodPos.x;
+                int fy = foodPos.y;
+                char fs = foodPos.symbol;
+                if (i == fy && j == fx && printed == false){
+                    line[ct] = fs;
+                    ct++;
+                    printed = true;
+                }
+            }
             if (i == 0 || i == by - 1 || j == 0 || j == bx - 1 && printed == false)
             {
                 line[ct] = '#';
-                ct++;
-            }
-            else if (i == fy && j == fx && printed == false)
-            {
-                line[ct] = fs;
                 ct++;
             }
             else if (printed == false)
@@ -129,7 +137,7 @@ void DrawScreen(void)
         MacUILib_printf("%s",line);
         MacUILib_printf("\n");
     }
-    MacUILib_printf("%d,%d", px, py);
+    //MacUILib_printf("%d,%d", px, py); //debug code
 }
 
 void LoopDelay(void)

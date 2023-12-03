@@ -38,7 +38,7 @@ public:
     void generateFood(objPosArrayList blockOff);
     void getFoodPos(objPos &returnPos);
 
-    void incrementScore();
+    void incrementScore(int num);
     int getScore();
 };
 
