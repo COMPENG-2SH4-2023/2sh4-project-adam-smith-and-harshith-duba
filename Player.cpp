@@ -10,7 +10,7 @@ Player::Player(GameMechs* thisGMRef)
     // more actions to be included
     playerPos = new objPosArrayList();
     objPos p;
-    p = objPos(10,5,'*');
+    p = objPos(10,5,'@');
     playerPos->insertHead(p); // instantiates first player position
 }
 
@@ -74,47 +74,47 @@ void Player::movePlayer()
 
     if(myDir == LEFT){
         x--;
-        p = objPos(x,y,'*');
+        p = objPos(x,y,'@');
         playerPos->insertHead(p);
     }
     else if(myDir == RIGHT){
         x++;
-        p = objPos(x,y,'*');
+        p = objPos(x,y,'@');
         playerPos->insertHead(p);
     }
     else if(myDir == DOWN){
         y++;
-        p = objPos(x,y,'*');
+        p = objPos(x,y,'@');
         playerPos->insertHead(p);
     }
     else if(myDir == UP){
         y--;
-        p = objPos(x,y,'*');
+        p = objPos(x,y,'@');
         playerPos->insertHead(p);
     }
     //border wraparound
     if(y == 0){
         y = by-2;
         playerPos->removeHead();
-        p = objPos(x,y,'*');
+        p = objPos(x,y,'@');
         playerPos->insertHead(p);
     }
     else if(y == by-1){
         y = 1;
         playerPos->removeHead();
-        p = objPos(x,y,'*');
+        p = objPos(x,y,'@');
         playerPos->insertHead(p);
     }
     if(x == bx-1){
         x = 1;
         playerPos->removeHead();
-        p = objPos(x,y,'*');
+        p = objPos(x,y,'@');
         playerPos->insertHead(p);
     }
     else if(x == 0){
         x = bx-2;
         playerPos->removeHead();
-        p = objPos(x,y,'*');
+        p = objPos(x,y,'@');
         playerPos->insertHead(p);
     }
 
@@ -122,6 +122,7 @@ void Player::movePlayer()
         bool suicided = this->checkSelfCollision();
         if(suicided == true){
             mainGameMechsRef->setExitTrue();
+            playerPos->removeHead();
         }
     }
 

@@ -69,9 +69,9 @@ void GetInput(void)
 
 void RunLogic(void)
 {
-    exitFlag = currGame->getExitFlagStatus();
     p1->updatePlayerDir();
     p1->movePlayer();
+    exitFlag = currGame->getExitFlagStatus();
 }
 
 void DrawScreen(void)
@@ -133,6 +133,9 @@ void LoopDelay(void)
 void CleanUp(void)
 {
     MacUILib_clearScreen();
+    
+    MacUILib_printf("Game Ended. You Scored: %d.\n", currGame->getScore());
+
     MacUILib_uninit();
     delete currGame;
     delete p1;
