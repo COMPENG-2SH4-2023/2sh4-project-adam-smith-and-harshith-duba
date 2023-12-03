@@ -3,43 +3,34 @@
 
 #include <cstdlib>
 #include <time.h>
-
 #include "objPos.h"
 #include "objPosArrayList.h"
 
-using namespace std;
-
-
 class GameMechs
 {
-    // Construct the remaining declaration from the project manual.
+private:
+    char input;
+    bool exitFlag;
+    int boardSizeX;
+    int boardSizeY;
+    objPosArrayList foodList; // New member to store food positions
 
-    // Only some sample members are included here
+public:
+    GameMechs();
+    GameMechs(int boardX, int boardY);
 
-    // You will include more data members and member functions to complete your design.
+    bool getExitFlagStatus();
+    void setExitTrue();
 
-    private:
-        char input;
-        bool exitFlag;
-        
-        int boardSizeX;
-        int boardSizeY;
+    char getInput();
+    void setInput(char this_input);
+    void clearInput();
 
-    public:
-        GameMechs();
-        GameMechs(int boardX, int boardY);
-        
-        bool getExitFlagStatus();
-        void setExitTrue();
+    int getBoardSizeX();
+    int getBoardSizeY();
 
-        char getInput();
-        void setInput(char this_input);
-        void clearInput();
-
-        int getBoardSizeX();
-        int getBoardSizeY();
-      
-
+    void generateFood(); // New method to generate random food
+    void getFoodList(objPosArrayList &returnList); // New method to get the list of food positions
 };
 
 #endif
