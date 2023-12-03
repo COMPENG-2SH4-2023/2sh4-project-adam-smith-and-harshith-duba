@@ -16,8 +16,7 @@ private:
     bool exitFlag;
     int boardSizeX;
     int boardSizeY;
-    objPosArrayList foodList;
-    objPos foodPos;  // Added foodPos member
+    
 
 public:
     GameMechs();
@@ -34,6 +33,8 @@ public:
     int getBoardSizeX();
     int getBoardSizeY();
 
+    objPos foodPos;  // Added foodPos member
+    objPosArrayList foodList;
     void generateFood(objPos blockOff);
     void getFoodPos(objPos &returnPos);
 };

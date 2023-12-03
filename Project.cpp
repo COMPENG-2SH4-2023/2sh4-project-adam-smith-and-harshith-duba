@@ -42,6 +42,9 @@ void Initialize(void)
     p1 = new Player(currGame);
     bx = currGame->getBoardSizeX();
     by = currGame->getBoardSizeY();
+    objPos playerPos;
+    p1->getPlayerPos(playerPos);
+    currGame->generateFood(playerPos);
 }
 
 void GetInput(void)
