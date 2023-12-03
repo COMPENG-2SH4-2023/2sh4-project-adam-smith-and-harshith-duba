@@ -5,12 +5,12 @@
 
 using namespace std;
 
-#define DELAY_CONST 100000
+#define DELAY_CONST 90000
 
 bool exitFlag;
-Player *p1;
-GameMechs *currGame;
-objPosArrayList *ppos;
+Player *p1 = NULL;
+GameMechs *currGame = NULL;
+objPosArrayList *ppos = NULL;
 objPos p;
 int bx, by;
 
@@ -40,7 +40,7 @@ void Initialize(void)
     MacUILib_init();
     MacUILib_clearScreen();
     exitFlag = false;
-    currGame = new GameMechs(20, 10);
+    currGame = new GameMechs(30, 15);
     p1 = new Player(currGame);
     bx = currGame->getBoardSizeX();
     by = currGame->getBoardSizeY();
@@ -91,9 +91,11 @@ void DrawScreen(void)
     int fx = foodPos.x;
     int fy = foodPos.y;
     char fs = foodPos.symbol;
-
+    char line[bx];
+    int ct = 0;
     for (i = 0; i < by; i++)
     {
+        int ct = 0;
         for (j = 0; j < bx; j++)
         {
             for(k = 0; k < ppos->getSize(); k++){
@@ -102,24 +104,30 @@ void DrawScreen(void)
                 px = p.x;
                 ps = p.symbol;
                 if (i == py && j == px && printed == false){
-                    MacUILib_printf("%c", ps);
+                    line[ct] = ps;
+                    ct++;
                     printed = true;
                 }
             }
             if (i == 0 || i == by - 1 || j == 0 || j == bx - 1 && printed == false)
             {
-                MacUILib_printf("#");
+                line[ct] = '#';
+                ct++;
             }
             else if (i == fy && j == fx && printed == false)
             {
-                MacUILib_printf("%c", fs);
+                line[ct] = fs;
+                ct++;
             }
             else if (printed == false)
             {
-                MacUILib_printf(" ");
+                line[ct] = ' ';
+                ct++;
             }
             printed = false;
         }
+        line[ct] = '\0';
+        MacUILib_printf("%s",line);
         MacUILib_printf("\n");
     }
     MacUILib_printf("%d,%d", px, py);
@@ -137,6 +145,11 @@ void CleanUp(void)
     MacUILib_printf("Game Ended. You Scored: %d.\n", currGame->getScore());
 
     MacUILib_uninit();
+    
+    ppos->kill();
+
+    delete ppos;
+ 
     delete currGame;
     delete p1;
 }

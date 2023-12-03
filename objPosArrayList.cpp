@@ -12,6 +12,10 @@ objPosArrayList::~objPosArrayList()
     //delete[] aList;
 }
 
+void objPosArrayList::kill(){
+    delete[] aList;
+}
+
 int objPosArrayList::getSize()
 {
     return sizeList;

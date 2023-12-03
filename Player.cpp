@@ -10,7 +10,7 @@ Player::Player(GameMechs* thisGMRef)
     // more actions to be included
     playerPos = new objPosArrayList();
     objPos p;
-    p = objPos(10,5,'@');
+    p = objPos(bx/2,by/2,'@');
     playerPos->insertHead(p); // instantiates first player position
 }
 
@@ -18,6 +18,7 @@ Player::Player(GameMechs* thisGMRef)
 Player::~Player()
 {
     // delete any heap members here
+    playerPos->kill();
     delete playerPos;
 }
 

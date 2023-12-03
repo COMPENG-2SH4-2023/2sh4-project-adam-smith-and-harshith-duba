@@ -20,6 +20,7 @@ GameMechs::GameMechs(int boardX, int boardY)
 GameMechs::~GameMechs()
 {
     // Add any necessary cleanup logic for GameMechs
+    foodList.kill();
 }
 
 bool GameMechs::getExitFlagStatus()
