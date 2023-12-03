@@ -5,22 +5,26 @@ Player::Player(GameMechs* thisGMRef)
 {
     mainGameMechsRef = thisGMRef;
     myDir = STOP;
-    playerPos = objPos(10,5,'*');
     bx = mainGameMechsRef->getBoardSizeX();
     by = mainGameMechsRef->getBoardSizeY();
     // more actions to be included
+    playerPos = new objPosArrayList();
+    objPos p;
+    p = objPos(10,5,'*');
+    playerPos->insertHead(p); // instantiates first player position
 }
 
 
 Player::~Player()
 {
     // delete any heap members here
+    delete playerPos;
 }
 
-void Player::getPlayerPos(objPos &returnPos)
+void Player::getPlayerPos(objPosArrayList &returnPos)
 {
     // return the reference to the playerPos array list
-    playerPos.getObjPos(returnPos);
+    returnPos = *playerPos;
 }
 
 void Player::updatePlayerDir()
@@ -63,31 +67,74 @@ void Player::updatePlayerDir()
 void Player::movePlayer()
 {
     // PPA3 Finite State Machine logic
+    objPos p;
+    playerPos->getHeadElement(p);
+    int x = p.x;
+    int y = p.y;
 
     if(myDir == LEFT){
-        playerPos.x--;
+        x--;
+        p = objPos(x,y,'*');
+        playerPos->insertHead(p);
     }
     else if(myDir == RIGHT){
-        playerPos.x++;
+        x++;
+        p = objPos(x,y,'*');
+        playerPos->insertHead(p);
     }
     else if(myDir == DOWN){
-        playerPos.y++;
+        y++;
+        p = objPos(x,y,'*');
+        playerPos->insertHead(p);
     }
     else if(myDir == UP){
-        playerPos.y--;
+        y--;
+        p = objPos(x,y,'*');
+        playerPos->insertHead(p);
     }
     //border wraparound
-    if(playerPos.y == 0){
-        playerPos.y = by-2;
+    if(y == 0){
+        y = by-2;
+        playerPos->removeHead();
+        p = objPos(x,y,'*');
+        playerPos->insertHead(p);
     }
-    else if(playerPos.y == by-1){
-        playerPos.y = 1;
+    else if(y == by-1){
+        y = 1;
+        playerPos->removeHead();
+        p = objPos(x,y,'*');
+        playerPos->insertHead(p);
     }
-    if(playerPos.x == bx-1){
-        playerPos.x = 1;
+    if(x == bx-1){
+        x = 1;
+        playerPos->removeHead();
+        p = objPos(x,y,'*');
+        playerPos->insertHead(p);
     }
-    else if(playerPos.x == 0){
-        playerPos.x = bx-2;
+    else if(x == 0){
+        x = bx-2;
+        playerPos->removeHead();
+        p = objPos(x,y,'*');
+        playerPos->insertHead(p);
+    }
+    bool foodConsumed = this->checkFoodConsumption();
+    if(myDir != STOP && !foodConsumed){
+        playerPos->removeTail();
+    }
+    else if(myDir != STOP && foodConsumed){
+        mainGameMechsRef->generateFood(*playerPos);
+        //mainGameMechsRef->incrementScore();
     }
 }
 
+// returns true if collided with food, false if not
+bool Player::checkFoodConsumption(){
+    objPos p,f;
+    playerPos->getHeadElement(p);
+    mainGameMechsRef->getFoodPos(f);
+    if(p.x == f.x && p.y == f.y){
+        return true;
+    }
+    else
+        return false;
+}
