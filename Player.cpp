@@ -120,7 +120,7 @@ void Player::movePlayer()
         playerPos->insertHead(p);
     }
 
-    if(mainGameMechsRef->getScore() > 3){
+    if(playerPos->getSize() > 5){
         bool suicided = this->checkSelfCollision();
         if(suicided == true){
             mainGameMechsRef->setExitTrue();

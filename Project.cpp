@@ -5,7 +5,7 @@
 #include "Food.h"
 using namespace std;
 
-#define DELAY_CONST 90000
+#define DELAY_CONST 100000
 
 bool exitFlag;
 Player *p1 = NULL;
