@@ -137,7 +137,28 @@ void DrawScreen(void)
         MacUILib_printf("%s",line);
         MacUILib_printf("\n");
     }
-    //MacUILib_printf("%d,%d", px, py); //debug code
+    MacUILib_printf("score: %d\n", currGame->getScore());
+    ppos->getHeadElement(p);
+    py = p.y;
+    px = p.x;
+    char d = 'S';
+    switch(p1->myDir){
+        case 0:
+            d = 'U';
+            break;
+        case 2:
+            d = 'L';
+            break;
+        case 1:
+            d = 'D';
+            break;
+        case 3:
+            d = 'R';
+    }
+    MacUILib_printf("\n======DEBUG MESSAGE======\n");
+    MacUILib_printf("Board Size: %d X %d\n", bx, by);
+    MacUILib_printf("Player Direction: %c\n", d);
+    MacUILib_printf("Player Position: %d, %d\n", px, py); //debug code
 }
 
 void LoopDelay(void)

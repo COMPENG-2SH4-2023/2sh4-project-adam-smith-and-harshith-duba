@@ -26,10 +26,10 @@ class Player
 
         bool checkFoodConsumption();
         bool checkSelfCollision();
-
+        enum Dir myDir;
     private:
         objPosArrayList *playerPos;   // Upgrade this in iteration 3.       
-        enum Dir myDir;
+        
         int bx,by;
         Food *f1;
         // Need a reference to the Main Game Mechanisms
