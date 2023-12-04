@@ -7,24 +7,40 @@
 
 class objPosArrayList
 {
-    private:
-        objPos* aList;
-        int sizeList;
-        int sizeArray;
+private:
+    objPos *aList;   // Dynamic array to store objPos elements
+    int sizeList;    // Current number of elements in the list
+    int sizeArray;   // Capacity of the dynamic array
 
-    public:
-        objPosArrayList();
-        ~objPosArrayList();
+public:
+    objPosArrayList();   // Constructor: initializes the object
+    ~objPosArrayList();  // Destructor: cleans up dynamically allocated memory
 
-        int getSize();
-        void insertHead(objPos thisPos);
-        void insertTail(objPos thisPos);
-        void removeHead();
-        void removeTail();
-        void kill();
-        void getHeadElement(objPos &returnPos);
-        void getTailElement(objPos &returnPos);
-        void getElement(objPos &returnPos, int index);
+    int getSize();  // Returns the current number of elements in the list
+
+    // Inserts an objPos element at the beginning of the list
+    void insertHead(objPos thisPos);
+
+    // Inserts an objPos element at the end of the list
+    void insertTail(objPos thisPos);
+
+    // Removes the objPos element at the beginning of the list
+    void removeHead();
+
+    // Removes the objPos element at the end of the list
+    void removeTail();
+
+    // Deallocates the dynamic array and sets the list size to 0
+    void kill();
+
+    // Retrieves the objPos element at the beginning of the list
+    void getHeadElement(objPos &returnPos);
+
+    // Retrieves the objPos element at the end of the list
+    void getTailElement(objPos &returnPos);
+
+    // Retrieves the objPos element at a specified index in the list
+    void getElement(objPos &returnPos, int index);
 };
 
 #endif

@@ -12,37 +12,37 @@ using namespace std;
 class GameMechs
 {
 private:
-    char input;
-    bool exitFlag, loseFlag;
-    int boardSizeX;
-    int boardSizeY;
-    int score;
+    char input;            // Stores user input
+    bool exitFlag, loseFlag; // Flags indicating game status
+    int boardSizeX;         // Width of the game board
+    int boardSizeY;         // Height of the game board
+    int score;              // Player's score
 
 public:
-    GameMechs();
-    GameMechs(int boardX, int boardY);
-    ~GameMechs();
+    GameMechs();                                // Default constructor
+    GameMechs(int boardX, int boardY);         // Parameterized constructor
+    ~GameMechs();                               // Destructor
 
-    bool getExitFlagStatus();
-    void setExitTrue();
+    bool getExitFlagStatus();                   // Get the status of the exit flag
+    void setExitTrue();                         // Set the exit flag to true
 
-    bool getLoseFlagStatus();
-    void setLoseTrue();
+    bool getLoseFlagStatus();                   // Get the status of the lose flag
+    void setLoseTrue();                         // Set the lose flag to true
 
-    char getInput();
-    void setInput(char this_input);
-    void clearInput();
+    char getInput();                            // Get user input
+    void setInput(char this_input);             // Set user input
+    void clearInput();                          // Clear user input
 
-    int getBoardSizeX();
-    int getBoardSizeY();
+    int getBoardSizeX();                        // Get the width of the game board
+    int getBoardSizeY();                        // Get the height of the game board
 
-    objPos foodPos;  // Added foodPos member
-    objPosArrayList foodList;
-    void generateFood(objPosArrayList blockOff);
-    void getFoodPos(objPos &returnPos);
+    objPos foodPos;                             // Current position of the food
+    objPosArrayList foodList;                   // List of food positions
+    void generateFood(objPosArrayList blockOff); // Generate food on the game board
+    void getFoodPos(objPos &returnPos);         // Get the position of the food
 
-    void incrementScore(int num);
-    int getScore();
+    void incrementScore(int num);               // Increment the player's score
+    int getScore();                             // Get the player's score
 };
 
 #endif

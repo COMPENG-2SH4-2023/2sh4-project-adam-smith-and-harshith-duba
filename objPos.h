@@ -4,22 +4,22 @@
 class objPos
 {
     public:
-        int x;
-        int y;
-        char symbol;
+        int x;           // X-coordinate of the position
+        int y;           // Y-coordinate of the position
+        char symbol;     // Symbol representing the object at this position
 
-        objPos();
-        objPos(objPos &o); // copy constructor
-        objPos(int xPos, int yPos, char sym);
+        objPos();                  // Default constructor
+        objPos(objPos &o);         // Copy constructor
+        objPos(int xPos, int yPos, char sym);  // Parameterized constructor
 
-        void setObjPos(objPos o);        
-        void setObjPos(int xPos, int yPos, char sym);  
-        void getObjPos(objPos &returnPos);
-        char getSymbol();
+        void setObjPos(objPos o);         // Set the object's position using another objPos object
+        void setObjPos(int xPos, int yPos, char sym);  // Set the object's position using individual values
+        void getObjPos(objPos &returnPos);  // Get the object's position
+        char getSymbol();             // Get the symbol representing the object
 
-        bool isPosEqual(const objPos* refPos);
-        
-        char getSymbolIfPosEqual(const objPos* refPos);
+        bool isPosEqual(const objPos* refPos);  // Check if two positions are equal
+
+        char getSymbolIfPosEqual(const objPos* refPos);  // Get the symbol if positions are equal
 };
 
 #endif

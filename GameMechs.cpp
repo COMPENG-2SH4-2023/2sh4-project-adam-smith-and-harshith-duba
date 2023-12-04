@@ -2,116 +2,83 @@
 
 GameMechs::GameMechs()
 {
-    boardSizeX = 20;
-    boardSizeY = 10;
-    exitFlag = false;
-    input = 0;
+    // Default constructor: Initialize board size and flags
+    boardSizeX = 20;   // Default width of the game board
+    boardSizeY = 10;   // Default height of the game board
+    exitFlag = false;  // Default exit flag status
+    loseFlag = false;  // Default lose flag status
+    input = 0;         // Default user input
+    score = 0;         // Default player score
 }
 
 GameMechs::GameMechs(int boardX, int boardY)
 {
-    boardSizeX = boardX;
-    boardSizeY = boardY;
-    exitFlag = false;
-    input = 0;
-    score = 0;
+    // Parameterized constructor: Initialize board size and flags
+    boardSizeX = boardX;   // Set the width of the game board
+    boardSizeY = boardY;   // Set the height of the game board
+    exitFlag = false;      // Default exit flag status
+    loseFlag = false;      // Default lose flag status
+    input = 0;             // Default user input
+    score = 0;             // Default player score
 }
 
 GameMechs::~GameMechs()
 {
-    // Add any necessary cleanup logic for GameMechs
-    foodList.kill();
+    // Destructor: Cleanup any dynamic memory or resources
+    foodList.kill();  // Release memory used by the food list
 }
 
 bool GameMechs::getExitFlagStatus()
 {
-    return exitFlag;
+    return exitFlag;  // Return the status of the exit flag
 }
 
 bool GameMechs::getLoseFlagStatus()
 {
-    return loseFlag;
+    return loseFlag;  // Return the status of the lose flag
 }
 
 char GameMechs::getInput()
 {
-    return input;
+    return input;     // Return the current user input
 }
 
 int GameMechs::getBoardSizeX()
 {
-    return boardSizeX;
+    return boardSizeX;  // Return the width of the game board
 }
 
 int GameMechs::getBoardSizeY()
 {
-    return boardSizeY;
+    return boardSizeY;  // Return the height of the game board
 }
 
 void GameMechs::setExitTrue()
 {
-    exitFlag = true;
+    exitFlag = true;  // Set the exit flag to true
 }
 
 void GameMechs::setLoseTrue()
 {
-    loseFlag = true;
+    loseFlag = true;  // Set the lose flag to true
 }
 
 void GameMechs::setInput(char this_input)
 {
-    input = this_input;
+    input = this_input;  // Set the user input
 }
 
 void GameMechs::clearInput()
 {
-    input = 0;
+    input = 0;  // Clear the user input
 }
-/*
-void GameMechs::generateFood(objPosArrayList blockOff)
+
+void GameMechs::incrementScore(int num)
 {
-    srand(time(NULL));  // Seed the random number generator
-    
-    int vGrid[boardSizeX][boardSizeY];
-    for(int k = 0; k < boardSizeX; k++){
-        for(int j = 0; j < boardSizeY; j++){
-            vGrid[k][j] = 0;
-        }
-    }
-
-    objPos p;
-
-    for(int i = 0; i < blockOff.getSize(); i++){
-        blockOff.getElement(p,i);
-        vGrid[p.x][p.y] = 1;
-    }
-    // Generate random x and y coordinates for the food
-    int randX = rand() % (boardSizeX - 2) + 1;  // Avoid borders
-    int randY = rand() % (boardSizeY - 2) + 1;
-
-    // Ensure the generated position is not on the player's position
-    while (vGrid[randX][randY] == 1) {
-        randX = rand() % (boardSizeX - 2) + 1;
-        randY = rand() % (boardSizeY - 2) + 1;
-    }
-
-    // Set the food position
-    foodPos.x = randX;
-    foodPos.y = randY;
-    foodPos.symbol = '+';  // 
-
-    // Add the food to the food list
-    foodList.insertHead(foodPos);
+    score += num;  // Increment the player's score by the specified amount
 }
 
-void GameMechs::getFoodPos(objPos &returnPos)
+int GameMechs::getScore()
 {
-    returnPos = foodPos;
-}
-*/
-void GameMechs::incrementScore(int num){
-    score += num;
-}
-int GameMechs::getScore(){
-    return score;
+    return score;  // Return the player's score
 }

@@ -2,23 +2,24 @@
 
 objPosArrayList::objPosArrayList()
 {
-    sizeList = 0;
-    sizeArray = ARRAY_MAX_CAP;
-    aList = new objPos[sizeArray];
+    sizeList = 0;           // Initialize the current number of elements to 0
+    sizeArray = ARRAY_MAX_CAP;  // Set the capacity of the dynamic array
+    aList = new objPos[sizeArray];  // Allocate memory for the dynamic array
 }
 
 objPosArrayList::~objPosArrayList()
 {
-    //delete[] aList;
+    // delete[] aList;
 }
 
-void objPosArrayList::kill(){
-    delete[] aList;
+void objPosArrayList::kill()
+{
+    delete[] aList;  // Deallocate the dynamic array to prevent memory leaks
 }
 
 int objPosArrayList::getSize()
 {
-    return sizeList;
+    return sizeList;  // Return the current number of elements in the list
 }
 
 void objPosArrayList::insertHead(objPos thisPos)
@@ -30,8 +31,8 @@ void objPosArrayList::insertHead(objPos thisPos)
         {
             aList[i] = aList[i - 1];
         }
-        aList[0] = thisPos;
-        ++sizeList;
+        aList[0] = thisPos;  // Insert the new head at the beginning of the list
+        ++sizeList;  // Increment the size of the list
     }
 }
 
@@ -39,8 +40,8 @@ void objPosArrayList::insertTail(objPos thisPos)
 {
     if (sizeList < sizeArray)
     {
-        aList[sizeList] = thisPos;
-        ++sizeList;
+        aList[sizeList] = thisPos;  // Insert the new element at the end of the list
+        ++sizeList;  // Increment the size of the list
     }
 }
 
@@ -53,7 +54,7 @@ void objPosArrayList::removeHead()
         {
             aList[i] = aList[i + 1];
         }
-        --sizeList;
+        --sizeList;  // Decrement the size of the list
     }
 }
 
@@ -61,7 +62,7 @@ void objPosArrayList::removeTail()
 {
     if (sizeList > 0)
     {
-        --sizeList; // Simply decrease the size to remove the tail
+        --sizeList;  // Simply decrease the size to remove the tail
     }
 }
 
@@ -69,7 +70,7 @@ void objPosArrayList::getHeadElement(objPos &returnPos)
 {
     if (sizeList > 0)
     {
-        returnPos = aList[0];
+        returnPos = aList[0];  // Retrieve the element at the beginning of the list
     }
 }
 
@@ -77,7 +78,7 @@ void objPosArrayList::getTailElement(objPos &returnPos)
 {
     if (sizeList > 0)
     {
-        returnPos = aList[sizeList - 1];
+        returnPos = aList[sizeList - 1];  // Retrieve the element at the end of the list
     }
 }
 
@@ -85,6 +86,6 @@ void objPosArrayList::getElement(objPos &returnPos, int index)
 {
     if (index >= 0 && index < sizeList)
     {
-        returnPos = aList[index];
+        returnPos = aList[index];  // Retrieve the element at the specified index
     }
 }

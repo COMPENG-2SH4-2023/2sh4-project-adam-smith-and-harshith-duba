@@ -10,15 +10,22 @@
 
 class Food
 {
-    public:
+public:
+    // Constructor: Initializes the food with a reference to the current game
+    Food(GameMechs* currGame);
 
-        Food(GameMechs* currGame);
-        ~Food();
-        int bx,by;
-        objPos foodPos;  // Added foodPos member
-        objPosArrayList foodList;
-        void generateFood(objPosArrayList blockOff);
-        objPosArrayList getFoodPos();
+    // Destructor
+    ~Food();
+
+    int bx, by;          // Board dimensions
+    objPos foodPos;       // Current food position
+    objPosArrayList foodList;  // List to store the food positions
+
+    // Generates a new food position that is not blocked by obstacles
+    void generateFood(objPosArrayList blockOff);
+
+    // Returns the list containing the current food position
+    objPosArrayList getFoodPos();
 };
 
 #endif
