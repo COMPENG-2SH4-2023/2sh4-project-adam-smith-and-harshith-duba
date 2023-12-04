@@ -124,6 +124,7 @@ void Player::movePlayer()
         bool suicided = this->checkSelfCollision();
         if(suicided == true){
             mainGameMechsRef->setExitTrue();
+            mainGameMechsRef->setLoseTrue();
             playerPos->removeHead();
         }
     }

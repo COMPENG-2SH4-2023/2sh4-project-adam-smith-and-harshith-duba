@@ -170,7 +170,10 @@ void CleanUp(void)
 {
     MacUILib_clearScreen();
     
-    MacUILib_printf("Game Ended. You Scored: %d.\n", currGame->getScore());
+    if(currGame->getLoseFlagStatus() == true)
+        MacUILib_printf("You Lost! You Scored: %d.\n", currGame->getScore());
+    else
+        MacUILib_printf("Game Ended. You Scored: %d.\n", currGame->getScore());
 
     MacUILib_uninit();
 
